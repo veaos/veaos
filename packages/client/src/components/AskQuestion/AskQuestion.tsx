@@ -1,10 +1,12 @@
 import React from 'react';
 import { useMutation } from 'react-query';
 import { useForm } from 'react-hook-form';
+
 import { TextField } from '../UI/TextField';
 import { Button } from '../UI/Button';
 import { Label } from '../UI/Label';
 import { Request } from '../../utils/request';
+import { MarkdownTextField } from '../MarkdownTextField/MarkdownTextField';
 
 export const AskQuestion = () => {
   const { mutate } = useMutation('questions', (data) =>
@@ -13,11 +15,15 @@ export const AskQuestion = () => {
       data,
     })
   );
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, setValue, setError, errors } = useForm();
 
   const onSubmit = (data) => {
     mutate(data);
   };
+
+  React.useEffect(() => {
+    register('body', { required: true });
+  }, [register]);
 
   return (
     <form className="bg-white p-4 space-y-5" onSubmit={handleSubmit(onSubmit)}>
@@ -37,11 +43,11 @@ export const AskQuestion = () => {
         description="Include all the information someone would need to answer your question"
         error={errors.body && 'Body is missing'}
       >
-        <TextField
-          name="body"
-          ref={register({ required: true })}
+        <MarkdownTextField
           error={errors.body}
-          multiline
+          onChange={(value) => {
+            setValue('body', value);
+          }}
         />
       </Label>
       <Button type="submit">Ask your question</Button>

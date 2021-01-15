@@ -2,12 +2,9 @@ import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import * as Icons from 'heroicons-react';
 import gravatar from 'gravatar';
-import ReactMarkdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import detectLang from 'lang-detector';
 
 import { useQuestionLike } from '../../actions/questions';
+import { Markdown } from '../Markdown/Markdown';
 
 export const Header = ({
   createdBy: { email, name },
@@ -46,26 +43,6 @@ export const Header = ({
   </div>
 );
 
-const renderers = (ignore = []) => ({
-  code: ({ language, value }) => {
-    if (ignore.includes('code')) {
-      return null;
-    }
-
-    return (
-      <div className="text-sm">
-        <SyntaxHighlighter
-          style={materialDark}
-          showLineNumbers={true}
-          language={language || detectLang(value)?.toLowerCase()}
-        >
-          {value}
-        </SyntaxHighlighter>
-      </div>
-    );
-  },
-});
-
 export const Content = ({
   title,
   body,
@@ -103,7 +80,7 @@ export const Content = ({
             !small ? 'text-lg mt-3' : 'mt-1'
           } leading-relaxed text-gray-800`}
         >
-          <ReactMarkdown renderers={renderers(ignore)}>{body}</ReactMarkdown>
+          <Markdown ignore={ignore}>{body}</Markdown>
         </p>
       </article>
     </div>

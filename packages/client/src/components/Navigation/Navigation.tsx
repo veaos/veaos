@@ -19,7 +19,7 @@ export const Navigation = () => {
   const history = useHistory();
 
   return (
-    <div className="min-h-full flex p-6">
+    <nav className="min-h-full flex p-6">
       <ul className="w-full">
         {items.map(({ icon, route, label }, i) => (
           <li
@@ -34,6 +34,6 @@ export const Navigation = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </nav>
   );
 };

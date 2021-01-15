@@ -60,6 +60,9 @@ export const getQuestions = async (req, res) => {
       await Question.aggregate([
         ...lookupLiked('$question', userId),
         ...lookupUser('createdBy'),
+        {
+          $sort: { createdAt: -1 },
+        },
       ])
     );
   } catch (err) {
@@ -81,6 +84,9 @@ export const getAnswersByQuestionId = async (req, res) => {
         },
         ...lookupLiked('$answer', userId),
         ...lookupUser('createdBy'),
+        {
+          $sort: { createdAt: -1 },
+        },
       ])
     );
   } catch (err) {
@@ -218,7 +224,6 @@ export const likeAnswer = async (req, res) => {
       liked,
     });
   } catch (err) {
-    console.log(err);
     res.formatter.serverError(err.message);
   }
 };

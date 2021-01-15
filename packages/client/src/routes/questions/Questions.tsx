@@ -1,5 +1,5 @@
 import React from 'react';
-import { BellOutline, PencilOutline } from 'heroicons-react';
+import { PencilOutline } from 'heroicons-react';
 import { useQuery } from 'react-query';
 
 import { PreviewQuestion } from '../../components/Question/PreviewQuestion';
@@ -23,9 +23,6 @@ export const QuestionsRoute = () => {
           <Button color="green" icon={PencilOutline} path="/question/ask">
             Ask a question
           </Button>
-          <button className="text-gray-400 focus:outline-none">
-            <BellOutline className="h-7 w-7" />
-          </button>
         </div>
         <div className="flex flex-col gap-5 mt-8">
           {data?.map((question, i) => (

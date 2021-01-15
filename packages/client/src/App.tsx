@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 
 import { Layout } from './components/Layout/Layout';
 
@@ -11,7 +11,14 @@ import { useAuth } from './context/AuthContext';
 import { LoginRoute } from './routes/Authentication/Login';
 
 function App() {
+  const history = useHistory();
   const { isAuthenticated } = useAuth();
+
+  history.listen((location, action) => {
+    if (action === 'PUSH') {
+      window.scrollTo(0,0);
+    }
+  });
 
   return (
     <div className="min-h-screen flex">
