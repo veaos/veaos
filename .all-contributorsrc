@@ -1,0 +1,26 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "nirberko",
+      "name": "Nir Berko",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2345040?v=4",
+      "profile": "https://github.com/nirberko",
+      "contributions": [
+        "infra",
+        "test",
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "veaos",
+  "projectOwner": "veaos",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
