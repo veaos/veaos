@@ -1,32 +1,18 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQueryClient } from 'react-query';
 
 import { Button } from '../UI/Button';
-import { Request } from '../../utils/request';
 import { MarkdownTextField } from '../MarkdownTextField/MarkdownTextField';
+import { useCreateAnswer } from '../../actions/answer.actions';
 
 export const AnswerQuestion = ({ id }) => {
-  const queryClient = useQueryClient();
-
   const { register, setValue, handleSubmit, errors, reset } = useForm();
 
   React.useEffect(() => {
     register('body', { required: true });
   }, [register]);
 
-  const { mutate } = useMutation(
-    ['answers', { questionId: id }],
-    (data) =>
-      Request(`/questions/${id}/answer`, {
-        method: 'POST',
-        data,
-      }),
-    {
-      onSuccess: () =>
-        queryClient.invalidateQueries(['answers', { questionId: id }]),
-    }
-  );
+  const { mutate } = useCreateAnswer({ questionId: id });
 
   const onSubmit = (data) => {
     mutate(data);

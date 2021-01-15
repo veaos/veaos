@@ -4,7 +4,7 @@ import { Request } from '../../utils/request';
 
 export const TopDiscussions = () => {
   const { data, isLoading } = useQuery(['questions', 'top-discussions'], () =>
-    Request('/questions/top-discussions')
+    Request('/posts')
   );
 
   if (isLoading) {

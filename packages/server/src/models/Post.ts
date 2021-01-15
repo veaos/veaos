@@ -2,19 +2,19 @@ import * as mongoose from 'mongoose';
 import { Schema, Document } from 'mongoose';
 import { IUser } from './User';
 
-export interface IAnswer extends Document {
+export interface IPost extends Document {
+  title: string;
   body: string;
-  questionId: string;
   createdBy: IUser | string;
-  computed: {
-    likes: number;
-  };
+  post(): this;
+  computed: { likes: number; answers?: number };
 }
 
-const AnswerSchema: Schema = new Schema(
+const PostSchema: Schema = new Schema(
   {
+    title: String,
     body: String,
-    questionId: {
+    post: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Post',
     },
@@ -23,10 +23,8 @@ const AnswerSchema: Schema = new Schema(
       ref: 'User',
     },
     computed: {
-      likes: {
-        type: Number,
-        default: 0,
-      },
+      likes: { type: Number, default: 0 },
+      answers: { type: Number, default: 0 },
     },
   },
   {
@@ -34,4 +32,4 @@ const AnswerSchema: Schema = new Schema(
   }
 );
 
-export const Answer = mongoose.model<IAnswer>('Answer', AnswerSchema);
+export const Post = mongoose.model<IPost>('Post', PostSchema);

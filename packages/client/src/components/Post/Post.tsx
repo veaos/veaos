@@ -3,8 +3,8 @@ import { formatDistanceToNow } from 'date-fns';
 import * as Icons from 'heroicons-react';
 import gravatar from 'gravatar';
 
-import { useQuestionLike } from '../../actions/questions';
 import { Markdown } from '../Markdown/Markdown';
+import { useLikeQuestion } from '../../actions/question.actions';
 
 export const Header = ({
   createdBy: { email, name },
@@ -40,6 +40,9 @@ export const Header = ({
         </small>
       </div>
     </div>
+    <div className="self-start text-xs text-gray-500">
+      <button className="focus:outline-none">edit</button>
+    </div>
   </div>
 );
 
@@ -67,7 +70,9 @@ export const Content = ({
       <article>
         {title ? (
           <h1
-            className="text-3xl md-3 font-semibold cursor-pointer"
+            className={`text-3xl md-3 font-semibold ${
+              onClickTitle ? 'cursor-pointer' : ''
+            }`}
             onClick={() => {
               onClickTitle && onClickTitle();
             }}
@@ -89,46 +94,48 @@ export const Content = ({
 
 export const Actions = ({
   small,
-  likes,
+  computed,
   liked,
-  onLike,
+  mutate,
 }: {
   small?: boolean;
-  likes: number;
+  computed: {
+    likes: number;
+  };
   liked?: any;
-  onLike: () => void;
+  mutate: (liked: boolean) => void;
 }) => {
   return (
     <div className={small ? 'mt-4' : 'mt-6'}>
       <div className="flex items-center">
         <button
-          onClick={onLike}
+          onClick={() => mutate(liked)}
           className="bg-red-100 text-red-400 fill-current rounded-full p-1 focus:outline-none ring-opacity-80 ring-red-500 ring-offset-2 focus:ring-2"
         >
           {liked ? <Icons.Heart /> : <Icons.HeartOutline />}
         </button>
-        <span className="text-gray-400 ml-3">{likes}</span>
+        <span className="text-gray-400 ml-3">{computed.likes}</span>
       </div>
     </div>
   );
 };
 
-export const Question = ({
+export const Post = ({
   _id,
+  computed,
   liked,
   title,
-  likes,
   createdBy,
   body,
   createdAt,
 }) => {
-  const { mutate } = useQuestionLike(_id);
+  const { mutate } = useLikeQuestion({ postId: _id });
 
   return (
     <div className="flex flex-col px-10 py-8 bg-white">
       <Header createdBy={createdBy} createdAt={createdAt} />
       <Content title={title} body={body} />
-      <Actions liked={liked} likes={likes} onLike={mutate} />
+      <Actions liked={Boolean(liked)} computed={computed} mutate={mutate} />
     </div>
   );
 };

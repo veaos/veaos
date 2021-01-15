@@ -1,20 +1,12 @@
 import React from 'react';
-import { useMutation } from 'react-query';
 import { useForm } from 'react-hook-form';
 
 import { TextField } from '../UI/TextField';
 import { Button } from '../UI/Button';
 import { Label } from '../UI/Label';
-import { Request } from '../../utils/request';
 import { MarkdownTextField } from '../MarkdownTextField/MarkdownTextField';
 
-export const AskQuestion = () => {
-  const { mutate } = useMutation('questions', (data) =>
-    Request('/questions/create', {
-      method: 'POST',
-      data,
-    })
-  );
+export const PostEditor = ({ mutate }) => {
   const { register, handleSubmit, setValue, errors } = useForm();
 
   const onSubmit = (data) => {

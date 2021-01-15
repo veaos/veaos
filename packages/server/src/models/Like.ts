@@ -1,26 +1,20 @@
 import * as mongoose from 'mongoose';
 import { Schema, Document } from 'mongoose';
 import { IUser } from './User';
-import { IQuestion } from './Question';
-import { IAnswer } from './Answer';
+import { IPost } from './Post';
 
 export interface ILike extends Document {
   body: string;
-  question?: IQuestion;
-  answer?: IAnswer;
+  post?: string | IPost;
   likedBy: IUser;
 }
 
 const LikeSchema: Schema = new Schema(
   {
     body: String,
-    question: {
+    post: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Question',
-    },
-    answer: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Answer',
+      ref: 'Post',
     },
     likedBy: {
       type: mongoose.Schema.Types.ObjectId,

@@ -1,16 +1,13 @@
 import React from 'react';
 import { PencilOutline } from 'heroicons-react';
-import { useQuery } from 'react-query';
 
-import { PreviewQuestion } from '../../components/Question/PreviewQuestion';
+import { PreviewPost } from '../../components/Post/PreviewPost';
 import { TopDiscussions } from '../../components/TopDiscussions/TopDiscussions';
 import { Button } from '../../components/UI/Button';
-import { Request } from '../../utils/request';
+import { useGetQuestions } from '../../actions/question.actions';
 
 export const QuestionsRoute = () => {
-  const { data, isLoading } = useQuery('questions', () =>
-    Request('/questions')
-  );
+  const { isLoading, data } = useGetQuestions();
 
   if (isLoading) {
     return <div>fetching...</div>;
@@ -26,7 +23,7 @@ export const QuestionsRoute = () => {
         </div>
         <div className="flex flex-col gap-5 mt-8">
           {data?.map((question, i) => (
-            <PreviewQuestion {...question} key={i} />
+            <PreviewPost {...question} key={i} />
           ))}
         </div>
       </div>

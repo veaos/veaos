@@ -1,13 +1,10 @@
 import React from 'react';
-import { useQuery } from 'react-query';
 
-import { Request } from '../../utils/request';
-import { Answer } from '../Question/Answer';
+import { Answer } from '../Post/Answer';
+import { useGetAnswers } from '../../actions/answer.actions';
 
 export const Answers = ({ questionId }) => {
-  const { data, isLoading } = useQuery(['answers', { questionId }], () =>
-    Request(`/questions/${questionId}/answers`)
-  );
+  const { data, isLoading } = useGetAnswers({ questionId });
 
   if (isLoading) {
     return <div>loading...</div>;

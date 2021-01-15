@@ -1,19 +1,15 @@
 import React from 'react';
-import { useQuery } from 'react-query';
-
-import { Request } from '../../utils/request';
-import { Question } from '../../components/Question/Question';
+import { Post } from '../../components/Post/Post';
 import { AnswerQuestion } from '../../components/AnswerQuestion/AnswerQuestion';
 import { Answers } from '../../components/Answers/Answers';
+import { useGetQuestion } from '../../actions/question.actions';
 
 export const QuestionRoute = ({
   match: {
     params: { id },
   },
 }) => {
-  const { data, isLoading } = useQuery(['questions', { id }], () =>
-    Request(`/questions/${id}`)
-  );
+  const { data, isLoading } = useGetQuestion({ postId: id });
 
   if (isLoading) {
     return <div>loading...</div>;
@@ -22,7 +18,7 @@ export const QuestionRoute = ({
   return (
     <div className="grid grid-cols-7 gap-4">
       <div className="col-span-5">
-        <Question {...data} />
+        <Post {...data} />
         <Answers questionId={id} />
         <AnswerQuestion id={id} />
       </div>

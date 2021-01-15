@@ -1,11 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Actions, Content, Header } from './Question';
-import { useQuestionLike } from '../../actions/questions';
+import { Actions, Content, Header } from './Post';
+import { useLikeQuestion } from '../../actions/question.actions';
 
-export const PreviewQuestion = ({
+export const PreviewPost = ({
   _id,
-  likes,
+  computed,
   liked,
   title,
   createdBy,
@@ -13,7 +13,7 @@ export const PreviewQuestion = ({
   createdAt,
 }) => {
   const history = useHistory();
-  const { mutate } = useQuestionLike(_id);
+  const { mutate } = useLikeQuestion({ postId: _id });
 
   return (
     <div className="flex flex-col px-10 py-8 bg-white">
@@ -26,7 +26,7 @@ export const PreviewQuestion = ({
           history.push(`/question/${_id}`);
         }}
       />
-      <Actions likes={likes} liked={liked} onLike={mutate} />
+      <Actions computed={computed} liked={Boolean(liked)} mutate={mutate} />
     </div>
   );
 };
