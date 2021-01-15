@@ -16,7 +16,7 @@ function App() {
 
   history.listen((location, action) => {
     if (action === 'PUSH') {
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0);
     }
   });
 

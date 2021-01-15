@@ -5,9 +5,8 @@ import { Request } from '../../utils/request';
 import { Answer } from '../Question/Answer';
 
 export const Answers = ({ questionId }) => {
-  const { data, isLoading } = useQuery(
-    ['answers', { questionId }],
-    () => Request(`/questions/${questionId}/answers`)
+  const { data, isLoading } = useQuery(['answers', { questionId }], () =>
+    Request(`/questions/${questionId}/answers`)
   );
 
   if (isLoading) {

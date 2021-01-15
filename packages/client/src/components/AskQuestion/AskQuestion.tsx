@@ -15,7 +15,7 @@ export const AskQuestion = () => {
       data,
     })
   );
-  const { register, handleSubmit, setValue, setError, errors } = useForm();
+  const { register, handleSubmit, setValue, errors } = useForm();
 
   const onSubmit = (data) => {
     mutate(data);

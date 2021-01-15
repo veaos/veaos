@@ -11,7 +11,7 @@ export const QuestionRoute = ({
     params: { id },
   },
 }) => {
-  const { data, isFetching, isLoading } = useQuery(['questions', { id }], () =>
+  const { data, isLoading } = useQuery(['questions', { id }], () =>
     Request(`/questions/${id}`)
   );
 
@@ -26,7 +26,7 @@ export const QuestionRoute = ({
         <Answers questionId={id} />
         <AnswerQuestion id={id} />
       </div>
-      <div className="col-span-2"></div>
+      <div className="col-span-2" />
     </div>
   );
 };

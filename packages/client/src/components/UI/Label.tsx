@@ -23,7 +23,9 @@ export const Label = ({ title, description, error, children }: ILabel) => {
         <span className="block text-gray-500 text-xs mb-2">{description}</span>
       ) : null}
       {children}
-      {error ? <span className="mt-1 text-xs text-red-600">{error}</span> : null}
+      {error ? (
+        <span className="mt-1 text-xs text-red-600">{error}</span>
+      ) : null}
     </label>
   );
 };
