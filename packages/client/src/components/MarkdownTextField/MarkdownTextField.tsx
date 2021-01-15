@@ -1,26 +1,22 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ReactMde from 'react-mde';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import { textFieldClassName } from '../UI/TextField';
 
 export const MarkdownTextField = ({
+  value,
   error,
   onChange,
 }: {
+  value?: string;
   error?: boolean;
   onChange: (e) => void;
 }) => {
-  const [value, setValue] = React.useState('');
-
-  useEffect(() => {
-    onChange(value);
-  }, [value]);
-
   return (
     <div className="container">
       <ReactMde
         value={value}
-        onChange={setValue}
+        onChange={onChange}
         disablePreview={true}
         classes={{
           reactMde:

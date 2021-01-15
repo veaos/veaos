@@ -121,10 +121,24 @@ export const createPost = async (req, res) => {
       createdBy: user._id,
     }).save();
 
-    res.formatter.ok({
-      ...post.toJSON(),
-      createdBy: user,
-    });
+    res.formatter.ok(await Post.findById(post._id).populate('createdBy'));
+  } catch (err) {
+    logger.error(err);
+    res.formatter.serverError(err.message);
+  }
+};
+
+export const editPost = async (req, res) => {
+  const { title, body } = req.body;
+  const postId = req.params.postId;
+
+  try {
+    res.formatter.ok(
+      await Post.findByIdAndUpdate(postId, {
+        title,
+        body,
+      }).populate('createdBy')
+    );
   } catch (err) {
     logger.error(err);
     res.formatter.serverError(err.message);

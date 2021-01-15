@@ -6,7 +6,7 @@ import { MarkdownTextField } from '../MarkdownTextField/MarkdownTextField';
 import { useCreateAnswer } from '../../actions/answer.actions';
 
 export const AnswerQuestion = ({ id }) => {
-  const { register, setValue, handleSubmit, errors, reset } = useForm();
+  const { register, setValue, handleSubmit, errors, watch, reset } = useForm();
 
   React.useEffect(() => {
     register('body', { required: true });
@@ -24,6 +24,7 @@ export const AnswerQuestion = ({ id }) => {
       <span className="text-xl font-semibold mt-5 block">Your Answer</span>
       <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-6 mt-6">
         <MarkdownTextField
+          value={watch('body')}
           error={errors.body}
           onChange={(value) => {
             setValue('body', value);

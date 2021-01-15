@@ -6,8 +6,20 @@ import { Button } from '../UI/Button';
 import { Label } from '../UI/Label';
 import { MarkdownTextField } from '../MarkdownTextField/MarkdownTextField';
 
-export const PostEditor = ({ mutate }) => {
-  const { register, handleSubmit, setValue, errors } = useForm();
+export const PostEditor = ({
+  noTitle,
+  mutate,
+  initialData,
+  submitButtonText,
+}: {
+  noTitle?: boolean;
+  mutate: (data: any) => void;
+  initialData?: any;
+  submitButtonText?: string;
+}) => {
+  const { register, handleSubmit, setValue, watch, errors } = useForm({
+    defaultValues: initialData,
+  });
 
   const onSubmit = (data) => {
     mutate(data);
@@ -19,17 +31,19 @@ export const PostEditor = ({ mutate }) => {
 
   return (
     <form className="bg-white p-4 space-y-5" onSubmit={handleSubmit(onSubmit)}>
-      <Label
-        title="Title"
-        description="Be specific and imagine you’re asking a question to another person"
-        error={errors.title && 'Title is missing'}
-      >
-        <TextField
-          name="title"
-          ref={register({ required: true })}
-          error={errors.title}
-        />
-      </Label>
+      {noTitle ? null : (
+        <Label
+          title="Title"
+          description="Be specific and imagine you’re asking a question to another person"
+          error={errors.title && 'Title is missing'}
+        >
+          <TextField
+            name="title"
+            ref={register({ required: true })}
+            error={errors.title}
+          />
+        </Label>
+      )}
       <Label
         title="Body"
         description="Include all the information someone would need to answer your question"
@@ -37,12 +51,13 @@ export const PostEditor = ({ mutate }) => {
       >
         <MarkdownTextField
           error={errors.body}
+          value={watch('body')}
           onChange={(value) => {
             setValue('body', value);
           }}
         />
       </Label>
-      <Button type="submit">Ask your question</Button>
+      <Button type="submit">{submitButtonText || 'Ask your question'}</Button>
     </form>
   );
 };

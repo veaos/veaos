@@ -1,50 +1,70 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
 import * as Icons from 'heroicons-react';
 import gravatar from 'gravatar';
 
 import { Markdown } from '../Markdown/Markdown';
 import { useLikeQuestion } from '../../actions/question.actions';
+import { useAuth } from '../../context/AuthContext';
 
 export const Header = ({
-  createdBy: { email, name },
+  _id,
+  createdBy: { email, name, ...createdBy },
   createdAt,
   small,
 }: {
-  createdBy: { email: string; name: string };
+  _id: string;
+  createdBy: { email: string; name: string; _id: string };
   createdAt: string;
   small?: boolean;
-}) => (
-  <div className="flex items-center w-full">
-    <img
-      className={`${
-        small ? 'w-8 h-8' : 'w-12 h-12'
-      } rounded-full object-cover mr-4 shadow`}
-      src={gravatar.url(email)}
-      alt="avatar"
-    />
-    <div className="w-full">
-      <div className="flex flex-col">
-        <div>
-          <h2 className={`${!small ? 'text-lg' : 'text-sm'} text-gray-900`}>
-            <strong>{name}</strong>
-            <span className={`${small ? 'text-xs' : 'text-sm'} text-gray-500`}>
-              {' '}
-              in{' '}
-            </span>
-            <span className={small ? 'text-xs' : 'text-sm'}>Java</span>
-          </h2>
+}) => {
+  const history = useHistory();
+  const { user } = useAuth();
+
+  return (
+    <div className="flex items-center w-full">
+      <img
+        className={`${
+          small ? 'w-8 h-8' : 'w-12 h-12'
+        } rounded-full object-cover mr-4 shadow`}
+        src={gravatar.url(email)}
+        alt="avatar"
+      />
+      <div className="w-full">
+        <div className="flex flex-col">
+          <div>
+            <h2 className={`${!small ? 'text-lg' : 'text-sm'} text-gray-900`}>
+              <strong>{name}</strong>
+              <span
+                className={`${small ? 'text-xs' : 'text-sm'} text-gray-500`}
+              >
+                {' '}
+                in{' '}
+              </span>
+              <span className={small ? 'text-xs' : 'text-sm'}>Java</span>
+            </h2>
+          </div>
+          <small className={`${small ? 'text-xs' : 'text-sm'} text-gray-700`}>
+            {formatDistanceToNow(new Date(createdAt), { addSuffix: true })}
+          </small>
         </div>
-        <small className={`${small ? 'text-xs' : 'text-sm'} text-gray-700`}>
-          {formatDistanceToNow(new Date(createdAt), { addSuffix: true })}
-        </small>
+      </div>
+      <div className="self-start text-xs text-gray-500">
+        {createdBy._id === user._id ? (
+          <button
+            className="focus:outline-none"
+            onClick={() => {
+              history.push(`/post/${_id}/edit`);
+            }}
+          >
+            edit
+          </button>
+        ) : null}
       </div>
     </div>
-    <div className="self-start text-xs text-gray-500">
-      <button className="focus:outline-none">edit</button>
-    </div>
-  </div>
-);
+  );
+};
 
 export const Content = ({
   title,
@@ -133,7 +153,7 @@ export const Post = ({
 
   return (
     <div className="flex flex-col px-10 py-8 bg-white">
-      <Header createdBy={createdBy} createdAt={createdAt} />
+      <Header _id={_id} createdBy={createdBy} createdAt={createdAt} />
       <Content title={title} body={body} />
       <Actions liked={Boolean(liked)} computed={computed} mutate={mutate} />
     </div>

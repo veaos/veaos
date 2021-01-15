@@ -15,7 +15,7 @@ export const Answer = ({
 
   return (
     <div className="flex flex-col px-10 py-8 bg-white">
-      <Header createdBy={createdBy} createdAt={createdAt} small />
+      <Header _id={_id} createdBy={createdBy} createdAt={createdAt} small />
       <Content body={body} small />
       <Actions
         liked={Boolean(liked)}

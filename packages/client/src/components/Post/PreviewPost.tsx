@@ -17,7 +17,7 @@ export const PreviewPost = ({
 
   return (
     <div className="flex flex-col px-10 py-8 bg-white">
-      <Header createdBy={createdBy} createdAt={createdAt} />
+      <Header _id={_id} createdBy={createdBy} createdAt={createdAt} />
       <Content
         title={title}
         body={body}

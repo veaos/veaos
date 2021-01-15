@@ -9,6 +9,7 @@ import { AskQuestionRoute } from './routes/askQuestion/AskQuestion';
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
 import { useAuth } from './context/AuthContext';
 import { LoginRoute } from './routes/Authentication/Login';
+import { EditPostRoute } from './routes/editPost/EditPost';
 
 function App() {
   const history = useHistory();
@@ -39,6 +40,7 @@ function App() {
             component={AskQuestionRoute}
           />
           <ProtectedRoute path="/question/:id" component={QuestionRoute} />
+          <ProtectedRoute path="/post/:id/edit" component={EditPostRoute} />
           <ProtectedRoute path="/" component={QuestionsRoute} />
         </Switch>
       </Layout>
