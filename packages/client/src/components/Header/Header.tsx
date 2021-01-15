@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import gravatar from 'gravatar';
 import { BellOutline } from 'heroicons-react';
 
@@ -84,7 +84,7 @@ export const Header = () => {
   const { user } = useAuth();
 
   return (
-    <header className="sticky bg-white top-0 flex justify-between items-center py-4 px-6 h-16">
+    <header className="sticky bg-white shadow-sm top-0 flex justify-between items-center py-4 px-6 h-16">
       <div className="w-1/4">
         <TextField name="search" placeholder="Search" />
       </div>

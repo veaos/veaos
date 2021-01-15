@@ -6,7 +6,7 @@ export interface IQuestion extends Document {
   title: string;
   body: string;
   createdBy: IUser | string;
-  likes: number;
+  computed: { likes: number; answers: number };
 }
 
 const QuestionSchema: Schema = new Schema(
@@ -17,7 +17,10 @@ const QuestionSchema: Schema = new Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
-    likes: Number,
+    computed: {
+      likes: { type: Number, default: 0 },
+      answers: { type: Number, default: 0 },
+    },
   },
   {
     timestamps: true,

@@ -3,6 +3,7 @@ import * as mongoose from 'mongoose';
 import { Question } from '../models/Question';
 import { Answer } from '../models/Answer';
 import { Like } from '../models/Like';
+import { logger } from '../utils/logger';
 
 const lookupUser = (field) => [
   {
@@ -66,6 +67,26 @@ export const getQuestions = async (req, res) => {
       ])
     );
   } catch (err) {
+    logger.error(err);
+    res.formatter.serverError(err.message);
+  }
+};
+
+export const getTopDiscussions = async (req, res) => {
+  try {
+    res.formatter.ok(
+      await Question.aggregate([
+        ...lookupUser('createdBy'),
+        {
+          $sort: { 'computed.answers': 1 },
+        },
+        {
+          $limit: 5,
+        },
+      ])
+    );
+  } catch (err) {
+    logger.error(err);
     res.formatter.serverError(err.message);
   }
 };
@@ -90,6 +111,7 @@ export const getAnswersByQuestionId = async (req, res) => {
       ])
     );
   } catch (err) {
+    logger.error(err);
     res.formatter.serverError(err.message);
   }
 };
@@ -112,6 +134,7 @@ export const getQuestionById = async (req, res) => {
       )[0]
     );
   } catch (err) {
+    logger.error(err);
     res.formatter.serverError(err.message);
   }
 };
@@ -129,6 +152,7 @@ export const createQuestion = async (req, res) => {
       }).save()
     );
   } catch (err) {
+    logger.error(err);
     res.formatter.serverError(err.message);
   }
 };
@@ -139,14 +163,21 @@ export const createAnswer = async (req, res) => {
   const user = req.user;
 
   try {
-    res.formatter.ok(
-      await new Answer({
-        questionId,
-        body,
-        createdBy: user._id,
-      }).save()
-    );
+    const answer = await new Answer({
+      questionId,
+      body,
+      createdBy: user._id,
+    }).save();
+
+    await Question.findByIdAndUpdate(questionId, {
+      $inc: {
+        'computed.answers': 1,
+      },
+    });
+
+    res.formatter.ok(answer);
   } catch (err) {
+    logger.error(err);
     res.formatter.serverError(err.message);
   }
 };
@@ -178,14 +209,14 @@ export const likeQuestion = async (req, res) => {
       ...(await Question.findByIdAndUpdate(
         questionId,
         {
-          $inc: { likes: liked ? 1 : -1 },
+          $inc: { 'computed.likes': liked ? 1 : -1 },
         },
         { new: true }
       ).lean()),
       liked,
     });
   } catch (err) {
-    console.log(err);
+    logger.error(err);
     res.formatter.serverError(err.message);
   }
 };
@@ -217,13 +248,14 @@ export const likeAnswer = async (req, res) => {
       ...(await Answer.findByIdAndUpdate(
         answerId,
         {
-          $inc: { likes: liked ? 1 : -1 },
+          $inc: { 'computed.likes': liked ? 1 : -1 },
         },
         { new: true }
       ).lean()),
       liked,
     });
   } catch (err) {
+    logger.error(err);
     res.formatter.serverError(err.message);
   }
 };

@@ -5,6 +5,7 @@ import {
   getAnswersByQuestionId,
   getQuestionById,
   getQuestions,
+  getTopDiscussions,
   likeAnswer,
   likeQuestion,
 } from '../controllers/question.controller';
@@ -12,6 +13,7 @@ import {
 export const questionRoutes = express.Router();
 
 questionRoutes.get('/', getQuestions);
+questionRoutes.get('/top-discussions', getTopDiscussions);
 questionRoutes.get('/:id', getQuestionById);
 questionRoutes.post('/:id/like', likeQuestion);
 
