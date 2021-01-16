@@ -1,16 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { ChatAlt2, UserGroup } from 'heroicons-react';
+import { ChatAlt2 } from 'heroicons-react';
 
 const items = [
   {
     icon: ChatAlt2,
-    label: 'Discussions',
-    route: '/',
-  },
-  {
-    icon: UserGroup,
-    label: 'Communities',
+    label: 'Questions',
     route: '/',
   },
 ];
