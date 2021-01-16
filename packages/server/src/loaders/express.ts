@@ -4,8 +4,9 @@ import * as bodyParser from 'body-parser';
 import * as cookieSession from 'cookie-session';
 import * as morgan from 'morgan';
 import { responseEnhancer } from 'express-response-formatter';
+import { errorHandler } from '../middlewares/errorHandler';
 
-export const expressLoader = ({ expressApp }) => {
+export const expressLoader = ({ expressApp }): void => {
   expressApp.use(bodyParser.urlencoded({ extended: true }));
   expressApp.use(bodyParser.json());
   expressApp.use(
@@ -23,4 +24,5 @@ export const expressLoader = ({ expressApp }) => {
   expressApp.use(helmet());
   expressApp.use(responseEnhancer());
   expressApp.use(morgan('tiny'));
+  expressApp.use(errorHandler);
 };
