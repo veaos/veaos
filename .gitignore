@@ -30,4 +30,5 @@ coverage/
 .nyc_output/
 .eslintcache
 .env
+.development.env
 build
