@@ -40,7 +40,10 @@ export const Header = ({
           {
             text: 'Delete',
             color: 'red',
-            onClick: onDeletePost,
+            onClick: (_, onClose) => {
+              onDeletePost();
+              onClose();
+            },
           },
           {
             text: 'Close',
