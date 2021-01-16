@@ -9,16 +9,24 @@ services:
       - "37017:27017"
   client:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./packages/client
     ports:
-      - '3000:80'
+      - '3000:3000'
+    volumes:
+      - /app/node_modules
+      - ./packages/client:/app
   server:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./packages/server
     ports:
-      - '8080:80'
+      - '8080:8080'
+    volumes:
+      - /app/node_modules
+      - ./packages/server:/app
+    environment:
+      - MONGODB_URL=mongodb://mongo:27017/veaos
     depends_on:
       - mongo
     links:

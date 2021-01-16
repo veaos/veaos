@@ -2,7 +2,7 @@
   "name": "veaos",
   "private": true,
   "scripts": {
-    "start": "lerna run start --stream",
+    "start": "lerna run dev --stream",
     "bootstrap": "npm install && lerna exec npm install"
   },
   "devDependencies": {

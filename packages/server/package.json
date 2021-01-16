@@ -4,8 +4,8 @@
   "description": "",
   "main": "./src/server.js",
   "scripts": {
-    "start": "NODE_ENV=development ts-node-dev ./src/server.ts",
-    "start:production": "node ./build/server.js",
+    "dev": "NODE_ENV=development ts-node-dev ./src/server.ts",
+    "start": "node ./build/server.js",
     "build": "tsc --build"
   },
   "author": "",

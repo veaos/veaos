@@ -5,4 +5,4 @@ RUN npm ci --silent
 COPY . ./
 RUN npm run build
 
-CMD ["npm", "run", "start:production"]
+CMD ["npm", "run", "start"]
