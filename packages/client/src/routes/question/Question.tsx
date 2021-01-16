@@ -9,10 +9,14 @@ export const QuestionRoute = ({
     params: { id },
   },
 }) => {
-  const { data, isLoading } = useGetQuestion({ postId: id });
+  const { data, isLoading, isFetched } = useGetQuestion({ postId: id });
 
   if (isLoading) {
     return <div>loading...</div>;
+  }
+
+  if (!data && isFetched) {
+    return <div>there is nothing here</div>;
   }
 
   return (

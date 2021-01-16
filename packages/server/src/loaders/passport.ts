@@ -2,7 +2,7 @@ import * as passport from 'passport';
 import { slackStrategy } from '../config/passport';
 import { User } from '../models/User';
 
-export const passportLoader = ({ expressApp }) => {
+export const passportLoader = ({ expressApp }): void => {
   passport.serializeUser(function (user, done) {
     done(null, user._id);
   });

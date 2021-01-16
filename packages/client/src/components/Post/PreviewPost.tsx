@@ -1,7 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Actions, Content, Header } from './Post';
-import { useLikeQuestion } from '../../actions/question.actions';
+import {
+  useDeleteQuestion,
+  useLikeQuestion,
+} from '../../actions/question.actions';
 
 export const PreviewPost = ({
   _id,
@@ -14,10 +17,16 @@ export const PreviewPost = ({
 }) => {
   const history = useHistory();
   const { mutate } = useLikeQuestion({ postId: _id });
+  const { mutate: mutateDeleteQuestion } = useDeleteQuestion({ postId: _id });
 
   return (
     <div className="flex flex-col px-10 py-8 bg-white">
-      <Header _id={_id} createdBy={createdBy} createdAt={createdAt} />
+      <Header
+        _id={_id}
+        createdBy={createdBy}
+        createdAt={createdAt}
+        onDeletePost={mutateDeleteQuestion}
+      />
       <Content
         title={title}
         body={body}

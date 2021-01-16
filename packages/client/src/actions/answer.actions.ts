@@ -2,15 +2,16 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import ObjectID from 'bson-objectid';
 import { Request } from '../utils/request';
 import { useAuth } from '../context/AuthContext';
+import { useDeletePost } from './post.actions';
 
-const queryKey = 'answers';
+const answerQueryKey = 'answers';
 
 export const useCreateAnswer = ({ questionId }) => {
   const queryClient = useQueryClient();
   const { user } = useAuth();
 
   return useMutation<any>(
-    [queryKey, { questionId }],
+    [answerQueryKey, { questionId }],
     (data) =>
       Request(`/posts/${questionId}`, {
         method: 'POST',
@@ -29,16 +30,16 @@ export const useCreateAnswer = ({ questionId }) => {
           createdBy: user,
         };
 
-        queryClient.setQueryData<any[]>([queryKey, { questionId }], (old) => [
-          ...old,
-          optimisticPost,
-        ]);
+        queryClient.setQueryData<any[]>(
+          [answerQueryKey, { questionId }],
+          (old) => [...old, optimisticPost]
+        );
 
         return { optimisticPost };
       },
       onSuccess: (result, variables, context: any) => {
         queryClient.setQueryData<any[]>(
-          [queryKey, { questionId }],
+          [answerQueryKey, { questionId }],
           (old: any) =>
             old.map((post) =>
               post._id === context.optimisticPost._id ? result : post
@@ -50,13 +51,15 @@ export const useCreateAnswer = ({ questionId }) => {
 };
 
 export const useGetAnswers = ({ questionId }) =>
-  useQuery([queryKey, { questionId }], () => Request(`/posts/${questionId}`));
+  useQuery([answerQueryKey, { questionId }], () =>
+    Request(`/posts/${questionId}`)
+  );
 
 export const useLikeAnswer = ({ answerId, questionId }) => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    [queryKey, { questionId }],
+    [answerQueryKey, { questionId }],
     () =>
       Request(`/posts/${answerId}/like`, {
         method: 'POST',
@@ -68,18 +71,44 @@ export const useLikeAnswer = ({ answerId, questionId }) => {
           post.liked = !liked;
         };
 
-        const posts: any = queryClient.getQueryData([queryKey, { questionId }]);
+        const posts: any = queryClient.getQueryData([
+          answerQueryKey,
+          { questionId },
+        ]);
 
         const post = posts.find(({ _id }) => _id === answerId);
 
         if (post) {
           updatePost(post);
-          queryClient.setQueryData([queryKey, { questionId }], posts);
+          queryClient.setQueryData([answerQueryKey, { questionId }], posts);
         }
       },
       onSuccess: () => {
-        queryClient.invalidateQueries([queryKey, { questionId }]);
+        queryClient.invalidateQueries([answerQueryKey, { questionId }]);
       },
+    }
+  );
+};
+
+export const useDeleteAnswer = ({ questionId, postId }) => {
+  const queryClient = useQueryClient();
+
+  return useDeletePost(
+    { postId },
+    {
+      onMutate: () => {
+        const answers: any[] = queryClient.getQueryData([
+          answerQueryKey,
+          { questionId },
+        ]);
+
+        queryClient.setQueryData(
+          [answerQueryKey, { questionId }],
+          answers?.filter(({ _id }) => _id !== postId)
+        );
+      },
+      onSuccess: () =>
+        queryClient.invalidateQueries([answerQueryKey, { questionId }]),
     }
   );
 };

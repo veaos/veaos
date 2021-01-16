@@ -1,6 +1,6 @@
 import React from 'react';
 import { Actions, Content, Header } from './Post';
-import { useLikeAnswer } from '../../actions/answer.actions';
+import { useDeleteAnswer, useLikeAnswer } from '../../actions/answer.actions';
 
 export const Answer = ({
   _id,
@@ -12,10 +12,20 @@ export const Answer = ({
   liked,
 }) => {
   const { mutate } = useLikeAnswer({ answerId: _id, questionId: post });
+  const { mutate: mutateDeletePost } = useDeleteAnswer({
+    questionId: post,
+    postId: _id,
+  });
 
   return (
     <div className="flex flex-col px-10 py-8 bg-white">
-      <Header _id={_id} createdBy={createdBy} createdAt={createdAt} small />
+      <Header
+        _id={_id}
+        createdBy={createdBy}
+        createdAt={createdAt}
+        small
+        onDeletePost={mutateDeletePost}
+      />
       <Content body={body} small />
       <Actions
         liked={Boolean(liked)}

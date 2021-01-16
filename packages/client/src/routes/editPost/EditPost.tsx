@@ -1,15 +1,14 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { PostEditor } from '../../components/PostEditor/PostEditor';
-import { useGetQuestion } from '../../actions/question.actions';
-import { useEditPost } from '../../actions/post.actions';
+import { useEditPost, useGetPost } from '../../actions/post.actions';
 
 export const EditPostRoute = ({
   match: {
     params: { id },
   },
 }) => {
-  const { data, isLoading } = useGetQuestion({ postId: id });
+  const { data, isLoading } = useGetPost({ postId: id });
   const { mutate, isSuccess } = useEditPost({ postId: id });
   const history = useHistory();
 

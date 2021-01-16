@@ -1,16 +1,19 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Request } from '../utils/request';
+import { useDeletePost } from './post.actions';
 
-const queryKey = 'questions';
+const questionQueryKey = 'questions';
 
 export const useGetQuestions = () =>
-  useQuery([queryKey], () => Request('/posts'));
+  useQuery([questionQueryKey], () => Request('/posts'));
 
 export const useGetQuestion = ({ postId }) =>
-  useQuery([queryKey, { postId }], () => Request(`/posts/byId/${postId}`));
+  useQuery([questionQueryKey, { postId }], () =>
+    Request(`/posts/byId/${postId}`)
+  );
 
 export const useCreateQuestion = () =>
-  useMutation([queryKey], (data) =>
+  useMutation([questionQueryKey], (data) =>
     Request('/posts', {
       method: 'POST',
       data,
@@ -21,7 +24,7 @@ export const useLikeQuestion = ({ postId }) => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    [queryKey, { postId }],
+    [questionQueryKey, { postId }],
     () =>
       Request(`/posts/${postId}/like`, {
         method: 'POST',
@@ -33,24 +36,63 @@ export const useLikeQuestion = ({ postId }) => {
           post.liked = !liked;
         };
 
-        let post: any = queryClient.getQueryData([queryKey, { postId }]);
+        let post: any = queryClient.getQueryData([
+          questionQueryKey,
+          { postId },
+        ]);
 
         if (post) {
           updatePost(post);
-          queryClient.setQueryData([queryKey, { postId }], post);
+          queryClient.setQueryData([questionQueryKey, { postId }], post);
         }
 
-        const posts: any = queryClient.getQueryData([queryKey]);
+        const posts: any = queryClient.getQueryData([questionQueryKey]);
         post = posts.find(({ _id }) => _id === postId);
 
         if (post) {
           updatePost(post);
-          queryClient.setQueryData([queryKey], posts);
+          queryClient.setQueryData([questionQueryKey], posts);
         }
       },
       onSuccess: () => {
-        queryClient.invalidateQueries([queryKey]);
-        queryClient.invalidateQueries([queryKey, { postId }]);
+        queryClient.invalidateQueries([questionQueryKey]);
+        queryClient.invalidateQueries([questionQueryKey, { postId }]);
+      },
+    }
+  );
+};
+
+export const useDeleteQuestion = ({ postId }) => {
+  const queryClient = useQueryClient();
+
+  return useDeletePost(
+    { postId },
+    {
+      onMutate: () => {
+        const questions: any[] = queryClient.getQueryData([questionQueryKey]);
+
+        if (Array.isArray(questions)) {
+          queryClient.setQueryData(
+            [questionQueryKey],
+            questions?.filter(({ _id }) => _id !== postId)
+          );
+        }
+
+        queryClient.setQueryData([questionQueryKey, { postId }], undefined);
+      },
+      onSuccess: () => {
+        const questions: any[] = queryClient.getQueryData([questionQueryKey]);
+
+        if (
+          Array.isArray(questions) &&
+          questions?.find(({ _id }) => _id !== postId)
+        ) {
+          queryClient.invalidateQueries([questionQueryKey]);
+        }
+
+        if (queryClient.getQueryData([questionQueryKey, { postId }])) {
+          queryClient.invalidateQueries([questionQueryKey, { postId }]);
+        }
       },
     }
   );

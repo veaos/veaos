@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-import { logger } from '../utils/logger';
 import { Post } from '../models/Post';
 import { Like } from '../models/Like';
 import { IUser } from '../models/User';
@@ -52,9 +51,13 @@ const lookupLiked = (userId) => [
   },
 ];
 
-export const getPosts = async (req, res) => {
+export const getPosts = async (req, res, next) => {
   const userId = req.user._id;
   const postId = req.params.postId;
+
+  const sort = {
+    [req.query.sort || 'createdAt']: req.query.sortDirection || -1,
+  };
 
   try {
     res.formatter.ok(
@@ -67,17 +70,16 @@ export const getPosts = async (req, res) => {
         ...lookupLiked(userId),
         ...lookupUser('createdBy'),
         {
-          $sort: { createdAt: -1 },
+          $sort: sort,
         },
       ])
     );
   } catch (err) {
-    logger.error(err);
-    res.formatter.serverError(err.message);
+    next(err);
   }
 };
 
-export const getPostByID = async (req, res) => {
+export const getPostByID = async (req, res, next) => {
   const userId = req.user._id;
 
   try {
@@ -95,12 +97,11 @@ export const getPostByID = async (req, res) => {
       )[0]
     );
   } catch (err) {
-    logger.error(err);
-    res.formatter.serverError(err.message);
+    next(err);
   }
 };
 
-export const createPost = async (req, res) => {
+export const createPost = async (req, res, next) => {
   const { title, body } = req.body;
   const postId = req.params.postId;
   const user: IUser = req.user;
@@ -123,12 +124,11 @@ export const createPost = async (req, res) => {
 
     res.formatter.ok(await Post.findById(post._id).populate('createdBy'));
   } catch (err) {
-    logger.error(err);
-    res.formatter.serverError(err.message);
+    next(err);
   }
 };
 
-export const editPost = async (req, res) => {
+export const editPost = async (req, res, next) => {
   const { title, body } = req.body;
   const postId = req.params.postId;
 
@@ -140,12 +140,11 @@ export const editPost = async (req, res) => {
       }).populate('createdBy')
     );
   } catch (err) {
-    logger.error(err);
-    res.formatter.serverError(err.message);
+    next(err);
   }
 };
 
-export const likePost = async (req, res) => {
+export const likePost = async (req, res, next) => {
   const postId = req.params.postId;
   const user = req.user;
 
@@ -179,7 +178,22 @@ export const likePost = async (req, res) => {
       liked,
     });
   } catch (err) {
-    logger.error(err);
-    res.formatter.serverError(err.message);
+    next(err);
+  }
+};
+
+export const deletePost = async (req, res, next) => {
+  const postId = req.params.postId;
+  const userId = req.user._id;
+
+  try {
+    await Post.deleteOne({
+      _id: postId,
+      createdBy: userId,
+    });
+
+    res.formatter.ok();
+  } catch (err) {
+    next(err);
   }
 };
