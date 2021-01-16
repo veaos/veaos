@@ -2,7 +2,7 @@
 <a href="https://i.imgur.com/3UKhH0w.jpg"><img src="https://i.imgur.com/3UKhH0w.jpg"/></a>
 </p>
 
-Opensource knowledge management application for Teams.
+[Veaos][veaos repo] is a free open source Q&A and knowledge management platform
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
@@ -27,3 +27,5 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+[veaos repo]: [https://github.com/veaos/veaos]
