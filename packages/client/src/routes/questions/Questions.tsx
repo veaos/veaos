@@ -40,7 +40,7 @@ export const QuestionsRoute = () => {
               hasMore={posts.length % perPage === 0}
               loader={<h4>Loading...</h4>}
               endMessage={
-                <p style={{ textAlign: 'center' }}>
+                <p className="text-center">
                   <b>Yay! You have seen it all</b>
                 </p>
               }
