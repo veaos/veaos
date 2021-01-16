@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 import { logout } from '../controllers/auth.contoller';
 
 export const authRoutes = express.Router();

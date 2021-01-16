@@ -1,6 +1,6 @@
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 
-mongoose.connect('mongodb://localhost:27017/veaos', {
+mongoose.connect(String(process.env.MONGODB_URL), {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

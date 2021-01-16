@@ -1,8 +1,8 @@
-import * as cors from 'cors';
-import * as helmet from 'helmet';
-import * as bodyParser from 'body-parser';
-import * as cookieSession from 'cookie-session';
-import * as morgan from 'morgan';
+import cors from 'cors';
+import helmet from 'helmet';
+import bodyParser from 'body-parser';
+import cookieSession from 'cookie-session';
+import morgan from 'morgan';
 import { responseEnhancer } from 'express-response-formatter';
 import { errorHandler } from '../middlewares/errorHandler';
 
@@ -17,7 +17,7 @@ export const expressLoader = ({ expressApp }): void => {
   );
   expressApp.use(
     cors({
-      origin: 'http://localhost:3000',
+      origin: process.env.PORTAL_URL,
       credentials: true,
     })
   );

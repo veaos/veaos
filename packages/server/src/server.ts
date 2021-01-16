@@ -1,4 +1,6 @@
-require('dotenv').config({ path: '.env' });
+require('dotenv').config({
+  path: process.env.NODE_ENV === 'development' ? '.development.env' : '.env',
+});
 
 import { app } from './application';
 

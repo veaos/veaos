@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { Post } from '../models/Post';
 import { Like } from '../models/Like';
 import { IUser } from '../models/User';
@@ -55,7 +55,7 @@ export const getPosts = async (req, res, next) => {
   const userId = req.user._id;
   const postId = req.params.postId;
 
-  const aggregations = [];
+  const aggregations: any = [];
 
   const sort = {
     [req.query.sort || 'createdAt']: req.query.sortDirection || -1,
@@ -175,7 +175,7 @@ export const likePost = async (req, res, next) => {
         post: postId,
         likedBy: user._id,
       });
-      liked = undefined;
+      liked = null;
     } else {
       liked = await new Like({
         post: postId,

@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 import { expressLoader } from './express';
 import { passportLoader } from './passport';
 import { routes } from '../routes';

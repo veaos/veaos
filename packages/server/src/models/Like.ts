@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { Schema, Document } from 'mongoose';
 import { IUser } from './User';
 import { IPost } from './Post';

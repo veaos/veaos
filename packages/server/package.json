@@ -5,7 +5,8 @@
   "main": "./src/server.js",
   "scripts": {
     "start": "NODE_ENV=development ts-node-dev ./src/server.ts",
-    "tsc": "tsc"
+    "start:production": "node ./build/server.js",
+    "build": "tsc --build"
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +26,9 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "@types/express": "^4.17.11",
+    "@types/helmet": "^4.0.0",
+    "@types/mongoose": "^5.10.3",
     "@types/node": "^14.14.20",
     "@typescript-eslint/eslint-plugin": "^4.13.0",
     "@typescript-eslint/parser": "^4.13.0",
