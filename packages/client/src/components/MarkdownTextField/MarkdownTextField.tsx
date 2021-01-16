@@ -15,7 +15,7 @@ export const MarkdownTextField = ({
   return (
     <div className="container">
       <ReactMde
-        value={value}
+        value={value || ''}
         onChange={onChange}
         disablePreview={true}
         classes={{

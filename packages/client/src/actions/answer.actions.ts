@@ -32,7 +32,7 @@ export const useCreateAnswer = ({ questionId }) => {
 
         queryClient.setQueryData<any[]>(
           [answerQueryKey, { questionId }],
-          (old) => [...old, optimisticPost]
+          (old) => [optimisticPost, ...old]
         );
 
         return { optimisticPost };
