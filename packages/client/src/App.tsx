@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 
 import { withLayout } from './components/Layout/Layout';
 
@@ -9,9 +9,11 @@ import { AskQuestionRoute } from './routes/askQuestion/AskQuestion';
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
 import { LoginRoute } from './routes/Authentication/Login';
 import { EditPostRoute } from './routes/editPost/EditPost';
+import { useAuth } from './context/AuthContext';
 
 function App() {
   const history = useHistory();
+  const { isAuthenticated } = useAuth();
 
   history.listen((location, action) => {
     if (action === 'PUSH') {
@@ -22,11 +24,13 @@ function App() {
   return (
     <div className="min-h-screen flex">
       <Switch>
-        <Route
-          exact
-          path="/account/login"
-          component={withLayout(LoginRoute, false)}
-        />
+        {!isAuthenticated && (
+          <Route
+            exact
+            path="/account/login"
+            component={withLayout(LoginRoute, false)}
+          />
+        )}
         <ProtectedRoute
           exact
           path="/account/logout"
@@ -48,7 +52,8 @@ function App() {
           path="/post/:id/edit"
           component={withLayout(EditPostRoute)}
         />
-        <ProtectedRoute path="/" component={withLayout(QuestionsRoute)} />
+        <ProtectedRoute exact path="/" component={withLayout(QuestionsRoute)} />
+        <Redirect to="/" />
       </Switch>
     </div>
   );

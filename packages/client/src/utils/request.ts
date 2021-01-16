@@ -2,7 +2,7 @@ interface IRequest {
   method?: string;
   data?: any;
   query?: {
-    [key: string]: string;
+    [key: string]: any;
   };
 }
 

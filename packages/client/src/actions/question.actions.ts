@@ -1,4 +1,10 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import _ from 'lodash';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from 'react-query';
 import { Request } from '../utils/request';
 import { useDeletePost } from './post.actions';
 
@@ -6,6 +12,24 @@ const questionQueryKey = 'questions';
 
 export const useGetQuestions = () =>
   useQuery([questionQueryKey], () => Request('/posts'));
+
+export const useGetInfiniteQuestions = ({ perPage }) =>
+  useInfiniteQuery(
+    [questionQueryKey],
+    ({ pageParam = 1 }) =>
+      Request('/posts', {
+        query: {
+          skip: (pageParam - 1) * perPage,
+          limit: perPage,
+        },
+      }),
+    {
+      getNextPageParam: (lastPage, allPages) =>
+        _.flatten(allPages).length / perPage + 1,
+      getPreviousPageParam: (firstPage, allPages) =>
+        _.flatten(allPages).length / perPage - 1,
+    }
+  );
 
 export const useGetQuestion = ({ postId }) =>
   useQuery([questionQueryKey, { postId }], () =>

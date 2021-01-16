@@ -15,8 +15,8 @@ export const Layout = ({ children, isAuthenticated }) =>
     children
   );
 
-export const withLayout = (Component, isAuthenticated = true) => () => (
+export const withLayout = (Component, isAuthenticated = true) => (props) => (
   <Layout isAuthenticated={Boolean(isAuthenticated)}>
-    <Component />
+    <Component {...props} />
   </Layout>
 );

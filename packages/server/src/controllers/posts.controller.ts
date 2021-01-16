@@ -55,9 +55,27 @@ export const getPosts = async (req, res, next) => {
   const userId = req.user._id;
   const postId = req.params.postId;
 
+  const aggregations = [];
+
   const sort = {
     [req.query.sort || 'createdAt']: req.query.sortDirection || -1,
   };
+
+  aggregations.push({
+    $sort: sort,
+  });
+
+  if (req.query.skip) {
+    aggregations.push({
+      $skip: Number(req.query.skip),
+    });
+  }
+
+  if (req.query.limit) {
+    aggregations.push({
+      $limit: Number(req.query.limit),
+    });
+  }
 
   try {
     res.formatter.ok(
@@ -69,9 +87,7 @@ export const getPosts = async (req, res, next) => {
         },
         ...lookupLiked(userId),
         ...lookupUser('createdBy'),
-        {
-          $sort: sort,
-        },
+        ...aggregations,
       ])
     );
   } catch (err) {

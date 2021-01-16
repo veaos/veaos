@@ -9,6 +9,7 @@ export const TopDiscussions = () => {
     Request('/posts', {
       query: {
         sort: 'computed.answers',
+        limit: 5,
       },
     })
   );
