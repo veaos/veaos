@@ -71,7 +71,7 @@ export const useLikeQuestion = ({ postId }) => {
         }
 
         const posts: any = queryClient.getQueryData([questionQueryKey]);
-        post = posts.find(({ _id }) => _id === postId);
+        post = _.flatten(posts)?.find(({ _id }) => _id === postId);
 
         if (post) {
           updatePost(post);
