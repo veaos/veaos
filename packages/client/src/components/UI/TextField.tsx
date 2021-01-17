@@ -4,6 +4,7 @@ interface ITextField {
   multiline?: boolean;
   error?: boolean;
   placeholder?: string;
+  className?: string;
   name: string;
 }
 
@@ -12,11 +13,24 @@ export const textFieldClassName =
   'text-gray-700 bg-gray-200 rounded focus:bg-gray-300 focus:outline-none focus:shadow-inner ring-1 ring-transparent';
 
 export const TextField = React.forwardRef(
-  ({ multiline, name, placeholder, error }: ITextField, ref: any) => {
+  (
+    {
+      multiline,
+      name,
+      placeholder,
+      error,
+      className: classNameProp,
+    }: ITextField,
+    ref: any
+  ) => {
     let className = textFieldClassName;
 
     if (error) {
       className += ' ring-red-400 ring-offset-1';
+    }
+
+    if (classNameProp) {
+      className += ` ${classNameProp}`;
     }
 
     return multiline ? (
@@ -24,7 +38,7 @@ export const TextField = React.forwardRef(
         name={name}
         ref={ref}
         placeholder={placeholder}
-        className={className + ' h-52'}
+        className={className}
       />
     ) : (
       <input

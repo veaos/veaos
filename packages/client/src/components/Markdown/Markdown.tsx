@@ -4,8 +4,16 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nord } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import detectLang from 'lang-detector';
 
-const renderers = (ignore = []) => ({
+interface ITranspile {
+  [key: string]: string;
+}
+
+const renderers = (ignore: string[] = [], transpile: ITranspile = {}) => ({
   code: ({ language, value }) => {
+    if (transpile['code']) {
+      return renderers(ignore)[transpile['code']]({ language, value });
+    }
+
     if (ignore.includes('code')) {
       return null;
     }
@@ -33,14 +41,23 @@ const renderers = (ignore = []) => ({
     );
   },
   inlineCode: ({ value }) => {
-    return <code className="bg-gray-100 text-sm p-1">{value}</code>;
+    return <code className="bg-gray-100 text-sm p-1 inline">{value}</code>;
   },
 });
 
 export const Markdown = ({
   children,
   ignore,
+  transpile,
 }: {
   children: any;
   ignore?: string[];
-}) => <ReactMarkdown renderers={renderers(ignore)}>{children}</ReactMarkdown>;
+  transpile?: ITranspile;
+}) => (
+  <ReactMarkdown
+    className="inline-block"
+    renderers={renderers(ignore, transpile)}
+  >
+    {children}
+  </ReactMarkdown>
+);

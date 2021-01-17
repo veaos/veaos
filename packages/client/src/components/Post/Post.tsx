@@ -10,16 +10,17 @@ import {
   useLikeQuestion,
 } from '../../actions/question.actions';
 import { useAuth } from '../../context/AuthContext';
-import { Modal } from '../Modal/Modal';
+import { DeleteModal } from '../DeleteModal/DeleteModal';
+import { Comments } from '../Comments/Comments';
 
 export const Header = ({
-  _id,
+  postId,
   createdBy: { email, name, ...createdBy },
   createdAt,
   small,
   onDeletePost,
 }: {
-  _id: string;
+  postId: string;
   createdBy: { email: string; name: string; _id: string };
   createdAt: string;
   small?: boolean;
@@ -32,28 +33,14 @@ export const Header = ({
 
   return (
     <div className="flex items-center w-full">
-      <Modal
-        open={open}
+      <DeleteModal
         title="Are your sure you want to delete this post?"
-        onClose={() => setOpen(false)}
-        buttons={[
-          {
-            text: 'Delete',
-            color: 'red',
-            onClick: (_, onClose) => {
-              onDeletePost();
-              onClose();
-            },
-          },
-          {
-            text: 'Close',
-            outlined: true,
-            onClick: (_, onClose) => onClose(),
-          },
-        ]}
+        onDelete={onDeletePost}
+        open={open}
+        setOpen={setOpen}
       >
         This action cannot be undone
-      </Modal>
+      </DeleteModal>
 
       <img
         className={`${
@@ -87,7 +74,7 @@ export const Header = ({
             <button
               className="focus:outline-none"
               onClick={() => {
-                history.push(`/post/${_id}/edit`);
+                history.push(`/post/${postId}/edit`);
               }}
             >
               edit
@@ -199,13 +186,14 @@ export const Post = ({
   return (
     <div className="flex flex-col px-10 py-8 bg-white">
       <Header
-        _id={_id}
+        postId={_id}
         createdBy={createdBy}
         createdAt={createdAt}
         onDeletePost={mutateDeleteQuestion}
       />
       <Content title={title} body={body} />
       <Actions liked={Boolean(liked)} computed={computed} mutate={mutate} />
+      <Comments postId={_id} />
     </div>
   );
 };

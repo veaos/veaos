@@ -1,6 +1,7 @@
 import React from 'react';
 import { Actions, Content, Header } from './Post';
 import { useDeleteAnswer, useLikeAnswer } from '../../actions/answer.actions';
+import { Comments } from '../Comments/Comments';
 
 export const Answer = ({
   _id,
@@ -20,7 +21,7 @@ export const Answer = ({
   return (
     <div className="flex flex-col px-10 py-8 bg-white">
       <Header
-        _id={_id}
+        postId={_id}
         createdBy={createdBy}
         createdAt={createdAt}
         small
@@ -33,6 +34,7 @@ export const Answer = ({
         mutate={mutate}
         small
       />
+      <Comments postId={_id} />
     </div>
   );
 };

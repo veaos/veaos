@@ -21,7 +21,6 @@ export const useCreateAnswer = ({ questionId }) => {
       onMutate: (data: any) => {
         const optimisticPost = {
           ...data,
-          body: 'cool',
           _id: new ObjectID().toHexString(),
           computed: {
             likes: 0,

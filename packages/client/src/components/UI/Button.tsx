@@ -7,6 +7,7 @@ export interface IButton<TOnClick = null> {
   path?: string;
   type?: 'submit' | 'reset' | 'button';
   outlined?: boolean;
+  className?: string;
   onClick?: TOnClick;
   children?: React.ReactNode;
 }
@@ -19,6 +20,7 @@ export const Button = ({
   children,
   type,
   outlined,
+  className,
 }: IButton<(e: React.MouseEvent<HTMLButtonElement>) => void>) => {
   const history = useHistory();
   return (
@@ -31,7 +33,8 @@ export const Button = ({
                 }
                 ${icon ? 'pl-3' : 'pl-6'}
                 pr-6 py-2 text-sm focus:outline-none 
-                max-w-max rounded-full focus:ring-2 ring-${color}-500 ring-offset-2`}
+                max-w-max rounded-full focus:ring-2 ring-${color}-500 ring-offset-2
+                ${className ? className : ''}`}
       onClick={(e) => {
         if (path) {
           history.push(path);

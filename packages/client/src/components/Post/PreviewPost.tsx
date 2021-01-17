@@ -22,7 +22,7 @@ export const PreviewPost = ({
   return (
     <div className="flex flex-col px-10 py-8 bg-white">
       <Header
-        _id={_id}
+        postId={_id}
         createdBy={createdBy}
         createdAt={createdAt}
         onDeletePost={mutateDeleteQuestion}

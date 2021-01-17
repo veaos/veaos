@@ -7,7 +7,7 @@ export interface IPost extends Document {
   body: string;
   createdBy: IUser | string;
   post(): this;
-  computed: { likes: number; answers?: number };
+  computed: { likes: number; answers?: number; comments?: number };
 }
 
 const PostSchema: Schema = new Schema(
@@ -25,6 +25,7 @@ const PostSchema: Schema = new Schema(
     computed: {
       likes: { type: Number, default: 0 },
       answers: { type: Number, default: 0 },
+      comments: { type: Number, default: 0 },
     },
   },
   {
