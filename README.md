@@ -1,31 +1,32 @@
-<p align="center">
-<a href="https://i.imgur.com/3UKhH0w.jpg"><img src="https://i.imgur.com/3UKhH0w.jpg"/></a>
-</p>
+![Veaos](https://i.imgur.com/3UKhH0w.jpg)
 
-[Veaos][veaos repo] is a free open source Q&A and knowledge management platform
+[Veaos][veaos] is a free open source Q&A and knowledge management platform
 
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+## Getting Started
 
-## Contributors ✨
+#### Development environment
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+**Using NPM and Lerna**
 
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/nirberko"><img src="https://avatars3.githubusercontent.com/u/2345040?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nir Berko</b></sub></a><br /><a href="#infra-nirberko" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/veaos/veaos/commits?author=nirberko" title="Tests">⚠️</a> <a href="https://github.com/veaos/veaos/commits?author=nirberko" title="Code">💻</a></td>
-  </tr>
-</table>
+```bash
+npm install
+lerna run dev --stream
+```
 
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
+**Using Docker Compose**
 
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+```bash
+docker-compose -f docker-compose.dev.yml up --build
+```
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+------------
 
-[veaos repo]: [https://github.com/veaos/veaos]
+#### Production
+
+**Using Docker Compose**
+
+```bash
+docker-compose run --build
+```
+
+[veaos]: [https://github.com/veaos/veaos]
