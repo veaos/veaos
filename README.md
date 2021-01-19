@@ -1,3 +1,4 @@
+
 <p align="center">
   <img width="128" height="128" src="https://i.imgur.com/RWUpyxw.png">
   <h3 align="center">Veaos</h3>
@@ -22,7 +23,7 @@ The motivation of this project is to give organizations the ability to set up th
 
 ### Built With
 
-**Veaos** is written in MERN stack (MongoDB, Express.js, React, and Node.js), using some awosome other open-source projects. the main ones will be describe in the section, but there are much more that you can find out in the [package.json](https://github.com/veaos/veaos/blob/main/package.json)
+**Veaos** is written in MERN stack (MongoDB, Express.js, React, and Node.js), using some awesome other open-source projects. the main ones will be described in the section, but there are much more that you can find out in the [package.json](https://github.com/veaos/veaos/blob/main/package.json)
 
 * [React](https://reactjs.org)
 * [Node.js](https://nodejs.org/en)
@@ -32,7 +33,7 @@ The motivation of this project is to give organizations the ability to set up th
 
 ## Getting Started
 
-In this section you can find out how to set up **Veaos**, both for production environment and for development environment.
+In this section, you can find out how to set up **Veaos**, both for production environment and for development environment.
 
 ### Development
 
@@ -58,7 +59,8 @@ docker-compose run --build
 ## Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
-We truly ❤️ pull requests! If you wish to help, you can learn more about how you can contribute to this project in the [contribution guide](https://github.com/veaos/veaos/blob/main/CONTRIBUTING.md).
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated** ❤️.
+you can learn more about how you can contribute to this project in the [contribution guide](https://github.com/veaos/veaos/blob/main/CONTRIBUTING.md).
 
 ## License
 This repository is available under the  [MIT License](https://github.com/veaos/veaos/blob/main/LICENSE).
