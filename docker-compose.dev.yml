@@ -4,15 +4,15 @@ services:
     container_name: mongo
     image: mongo
     volumes:
-      - './data:/data/db'
+      - ./data:/data/db
     ports:
-      - "37017:27017"
+      - 37017:27017
   client:
     build:
       dockerfile: Dockerfile.dev
       context: ./packages/client
     ports:
-      - '3000:3000'
+      - 3000:3000
     volumes:
       - /app/node_modules
       - ./packages/client:/app
@@ -21,7 +21,7 @@ services:
       dockerfile: Dockerfile.dev
       context: ./packages/server
     ports:
-      - '8080:8080'
+      - 8080:8080
     volumes:
       - /app/node_modules
       - ./packages/server:/app

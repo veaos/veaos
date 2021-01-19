@@ -2,9 +2,9 @@ import React, { useRef, useState } from 'react';
 import gravatar from 'gravatar';
 import { BellOutline } from 'heroicons-react';
 
-import { TextField } from '../UI/TextField';
 import { useAuth } from '../../context/AuthContext';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
+import { Search } from '../Search/Search';
 
 const UserDropdown = ({ onToggle, open, user }) => {
   const ref = useRef();
@@ -86,7 +86,7 @@ export const Header = () => {
   return (
     <header className="sticky z-10 bg-white shadow-sm top-0 flex justify-between items-center py-4 px-6 h-16">
       <div className="w-1/4">
-        <TextField name="search" placeholder="Search" />
+        <Search />
       </div>
       <div className="flex items-center">
         {/*<NotificationsDropdown

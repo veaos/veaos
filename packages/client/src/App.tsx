@@ -5,11 +5,12 @@ import { withLayout } from './components/Layout/Layout';
 
 import { QuestionsRoute } from './routes/questions/Questions';
 import { QuestionRoute } from './routes/question/Question';
-import { AskQuestionRoute } from './routes/askQuestion/AskQuestion';
+import { AskQuestionRoute } from './routes/ask-question/AskQuestion';
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
-import { LoginRoute } from './routes/Authentication/Login';
+import { LoginRoute } from './routes/authentication/Login';
 import { EditPostRoute } from './routes/editPost/EditPost';
 import { useAuth } from './context/AuthContext';
+import { SearchRoute } from './routes/search/Search';
 
 function App() {
   const history = useHistory();
@@ -51,6 +52,11 @@ function App() {
         <ProtectedRoute
           path="/post/:id/edit"
           component={withLayout(EditPostRoute)}
+        />
+        <ProtectedRoute
+          exact
+          path="/search"
+          component={withLayout(SearchRoute)}
         />
         <ProtectedRoute exact path="/" component={withLayout(QuestionsRoute)} />
         <Redirect to="/" />

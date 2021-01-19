@@ -10,9 +10,6 @@ import { useDeletePost } from './post.actions';
 
 const questionQueryKey = 'questions';
 
-export const useGetQuestions = () =>
-  useQuery([questionQueryKey], () => Request('/posts'));
-
 export const useGetInfiniteQuestions = ({ perPage }) =>
   useInfiniteQuery(
     [questionQueryKey],

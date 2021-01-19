@@ -183,15 +183,14 @@ export const likePost = async (req, res, next) => {
       }).save();
     }
 
-    res.formatter.ok({
-      ...(await Post.findByIdAndUpdate(
-        postId,
-        {
-          $inc: { 'computed.likes': liked ? 1 : -1 },
-        },
-        { new: true }
-      ).lean()),
-      liked,
+    Post.findByIdAndUpdate(
+      postId,
+      {
+        $inc: { 'computed.likes': liked ? 1 : -1 },
+      },
+      { new: true }
+    ).then((res) => {
+      res.formatter.ok(res);
     });
   } catch (err) {
     next(err);

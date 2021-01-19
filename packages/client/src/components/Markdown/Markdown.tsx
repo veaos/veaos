@@ -54,10 +54,7 @@ export const Markdown = ({
   ignore?: string[];
   transpile?: ITranspile;
 }) => (
-  <ReactMarkdown
-    className="inline-block"
-    renderers={renderers(ignore, transpile)}
-  >
+  <ReactMarkdown renderers={renderers(ignore, transpile)}>
     {children}
   </ReactMarkdown>
 );

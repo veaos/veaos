@@ -12,8 +12,8 @@ export interface IPost extends Document {
 
 const PostSchema: Schema = new Schema(
   {
-    title: String,
-    body: String,
+    title: { type: String, es_indexed: true },
+    body: { type: String, es_indexed: true },
     post: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Post',
@@ -33,4 +33,4 @@ const PostSchema: Schema = new Schema(
   }
 );
 
-export const Post = mongoose.model<IPost>('Post', PostSchema);
+export const Post: any = mongoose.model<IPost>('Post', PostSchema);

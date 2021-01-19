@@ -6,6 +6,7 @@ interface ITextField {
   placeholder?: string;
   className?: string;
   name: string;
+  onKeyDown?: (e) => void;
 }
 
 export const textFieldClassName =
@@ -20,6 +21,7 @@ export const TextField = React.forwardRef(
       placeholder,
       error,
       className: classNameProp,
+      onKeyDown,
     }: ITextField,
     ref: any
   ) => {
@@ -39,6 +41,7 @@ export const TextField = React.forwardRef(
         ref={ref}
         placeholder={placeholder}
         className={className}
+        onKeyDown={onKeyDown}
       />
     ) : (
       <input
@@ -46,6 +49,7 @@ export const TextField = React.forwardRef(
         ref={ref}
         placeholder={placeholder}
         className={className}
+        onKeyDown={onKeyDown}
       />
     );
   }

@@ -1,4 +1,4 @@
-import Router from 'express-promise-router';
+import express from 'express';
 import {
   createComment,
   deleteComment,
@@ -6,7 +6,7 @@ import {
   getComments,
 } from '../controllers/comments.controller';
 
-export const commentsRoutes = Router();
+export const commentsRoutes = express.Router();
 
 commentsRoutes.get('/post/:postId', getComments);
 commentsRoutes.post('/:postId', createComment);
