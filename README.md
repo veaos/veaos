@@ -16,10 +16,10 @@
 
 ## About The Project
 
-**Veaos** is a Q&A/knowledge base platform written in MERN stack (MongoDB, Express.js, React, and Node.js)
+**Veaos** is a Q&A/knowledge base platform written in MERN stack (MongoDB, Express.js, React, and Node.js). 
 The motivation of this project is to give organizations the ability to set up their own Q&A and knowledge platform for the employees, so they can share knowledge between them by asking questions/writing docs, and collect it for future applications.
  
-**Veaos** can run everywhere - easily by installing Docker on your target server and following the instructions below
+**Veaos** can run everywhere - easily by installing Docker on your target server and following the instructions below.
 
 ### Built With
 
@@ -58,8 +58,8 @@ docker-compose run --build
 
 ## Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated** ❤️.
+When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.  
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated** ❤️.  
 you can learn more about how you can contribute to this project in the [contribution guide](https://github.com/veaos/veaos/blob/main/CONTRIBUTING.md).
 
 ## License
