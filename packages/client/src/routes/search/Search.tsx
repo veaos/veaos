@@ -1,12 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
 import { useLocation } from 'react-router-dom';
-import { PencilOutline } from 'heroicons-react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { PreviewPost } from '../../components/Post/PreviewPost';
 import { TopDiscussions } from '../../components/TopDiscussions/TopDiscussions';
-import { Button } from '../../components/UI/Button';
 import { useGetInfiniteSearch } from '../../actions/search.actions';
 
 export const SearchRoute = () => {
@@ -28,12 +26,7 @@ export const SearchRoute = () => {
   return (
     <div className="grid grid-cols-8 gap-4">
       <div className="col-span-6">
-        <div className="flex space-x-5">
-          <Button color="green" icon={PencilOutline} path="/question/ask">
-            Ask a question
-          </Button>
-        </div>
-        <div className="mt-8">
+        <div>
           {isFetched && posts.length ? (
             <InfiniteScroll
               className="flex flex-col gap-5"
