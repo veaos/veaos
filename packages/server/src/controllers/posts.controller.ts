@@ -189,8 +189,8 @@ export const likePost = async (req, res, next) => {
         $inc: { 'computed.likes': liked ? 1 : -1 },
       },
       { new: true }
-    ).then((res) => {
-      res.formatter.ok(res);
+    ).then((response) => {
+      res.formatter.ok(response);
     });
   } catch (err) {
     next(err);
