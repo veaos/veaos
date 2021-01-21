@@ -25,10 +25,10 @@ export const Button = ({
   const history = useHistory();
   return (
     <button
-      className={`flex items-center
+      className={`flex items-center border-2 border-${color}-500
                 ${
                   outlined
-                    ? `border-2 border-${color}-500 text-${color}-500`
+                    ? `text-${color}-500`
                     : `bg-${color}-500 text-${color}-50`
                 }
                 ${icon ? 'pl-3' : 'pl-6'}

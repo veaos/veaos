@@ -38,7 +38,11 @@ export const Modal = ({ open, title, children, buttons, onClose }: IModal) => {
           <div className="flex gap-2 ml-auto">
             {buttons ? (
               buttons?.map(({ text, onClick, ...props }, i) => (
-                <Button key={i} onClick={(e) => onClick(e, onClose)} {...props}>
+                <Button
+                  key={i}
+                  onClick={(e) => onClick && onClick(e, onClose)}
+                  {...props}
+                >
                   {text}
                 </Button>
               ))

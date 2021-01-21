@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwind";
 
 html, body, #root {
     min-height: 100vh;

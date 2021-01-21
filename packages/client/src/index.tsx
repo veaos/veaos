@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './context/AuthContext';
 import App from './App';
-import './index.css';
+import './index.scss';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
 const queryClient = new QueryClient({
