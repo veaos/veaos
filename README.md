@@ -5,7 +5,7 @@
   <p align="center">
 	  Veaos is a free open source Q&A and knowledge management platform
     <br />
-    <a href="https://veaos.readme.io"><strong>Explore the docs »</strong></a>
+    <a href="https://veaos.gitbook.io/veaos"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/veaos/veaos/issues">Report Bug</a>
