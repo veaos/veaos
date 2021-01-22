@@ -1,19 +1,19 @@
 import React, { ComponentProps } from 'react';
 import { Story } from '@storybook/react/types-6-0';
 
-import { Modal } from './Modal';
+import { Modal as ModalComponent } from './Modal';
 
 export default {
   title: 'Components',
-  component: Modal,
+  component: ModalComponent,
 };
 
-const Template: Story<ComponentProps<typeof Modal>> = (args) => (
-  <Modal {...args} />
+const Template: Story<ComponentProps<typeof ModalComponent>> = (args) => (
+  <ModalComponent {...args} />
 );
 
-export const Default = Template.bind({});
-Default.args = {
+export const Modal = Template.bind({});
+Modal.args = {
   open: true,
   title: "Use Google's location service?",
   children:
