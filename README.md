@@ -11,9 +11,12 @@
     <a href="https://github.com/veaos/veaos/issues">Report Bug</a>
     ·
     <a href="https://github.com/veaos/veaos/issues">Request Feature</a>
-    <br />
-    [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/veaos-community/community)
   </p>
+</p>
+<p align="center">
+	
+[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/veaos-community/community)
+
 </p>
 
 ## About The Project
